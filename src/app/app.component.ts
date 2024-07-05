@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { invoke } from "@tauri-apps/api/tauri";
+import { ThemeService } from 'services';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,9 @@ import { invoke } from "@tauri-apps/api/tauri";
 export class AppComponent {
   greetingMessage = "";
 
+  readonly #themeService = inject(ThemeService);
+  readonly theme = this.#themeService.theme;
+
   greet(event: SubmitEvent, name: string): void {
     event.preventDefault();
 
@@ -21,4 +25,6 @@ export class AppComponent {
       this.greetingMessage = text;
     });
   }
+
+  toggleTheme = () => this.#themeService.toggleTheme()
 }

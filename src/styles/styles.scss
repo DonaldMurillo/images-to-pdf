@@ -21,14 +21,34 @@
 	--transition-duration: 0.3s;
 }
 
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background-color: #121212;
-		--text-color: #e0e0e0;
-		--muted-text-color: #b0b0b0;
-		--link-color: lighten(var(--primary-color), 10%);
-		--link-hover-color: lighten(var(--primary-color), 20%);
-	}
+:root {
+	--primary-color: #007bff;
+	--secondary-color: #6c757d;
+	--success-color: #28a745;
+	--danger-color: #dc3545;
+	--warning-color: #ffc107;
+	--info-color: #17a2b8;
+	--light-color: #f8f9fa;
+	--dark-color: #343a40;
+
+	--border-radius: 0.25rem;
+	--transition-duration: 0.3s;
+}
+
+:root:not(body.dark) {
+	--background-color: #ffffff;
+	--text-color: #212529;
+	--muted-text-color: #6c757d;
+	--link-color: var(--primary-color);
+	--link-hover-color: darken(var(--primary-color), 10%);
+}
+
+:root:has(body.dark) {
+	--background-color: #121212;
+	--text-color: #e0e0e0;
+	--muted-text-color: #b0b0b0;
+	--link-color: lighten(var(--primary-color), 10%);
+	--link-hover-color: lighten(var(--primary-color), 20%);
 }
 
 // Base styles

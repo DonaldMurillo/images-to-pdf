@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Welcome to Tauri + Angular!</h1>
+  <h1>Welcome to Tauri + Angular! {{ theme() }}</h1>
   <div class="row">
     <a href="https://tauri.app" target="_blank">
       <img src="/assets/tauri.svg" class="logo tauri" alt="Tauri logo" />
@@ -15,4 +15,5 @@
     <button type="submit">Greet</button>
   </form>
   <p>{{ greetingMessage }}</p>
+  <button (click)="toggleTheme()">Toggle</button>
 </div>
