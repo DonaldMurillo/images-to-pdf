@@ -109,9 +109,10 @@ export class FileManagementService {
 	}
 
 	removeFile(fileToRemove: File): void {
+		console.log(fileToRemove);
 		this.#state.update(state => ({
 			...state,
-			files: state.files.filter(file => file.blob !== fileToRemove)
+			files: state.files.filter((file) => file.blob !== fileToRemove)
 		}));
 	}
 
