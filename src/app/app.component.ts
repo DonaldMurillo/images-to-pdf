@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { invoke } from "@tauri-apps/api/tauri";
 import { ThemeService } from 'services';
+import { FileManagerComponent } from 'components';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, FileManagerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

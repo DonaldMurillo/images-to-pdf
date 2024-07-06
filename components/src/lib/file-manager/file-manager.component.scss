@@ -1,0 +1,122 @@
+:host {
+	display: block;
+}
+
+.upload-area {
+	border: 2px dashed #007BFF;
+	background-color: #F7F9FC;
+	color: #6C757D;
+	padding: 20px;
+	text-align: center;
+	cursor: pointer;
+	margin-bottom: 20px;
+	transition: background-color 0.3s ease;
+	/* Smooth transition for background color */
+
+	/* New styles for drag hover state */
+	&.drag-hover {
+		background-color: #D3E2F8;
+		border-color: #0056b3;
+		cursor: move;
+	}
+}
+
+.files-list {
+	max-height: 30rem;
+	overflow: auto;
+
+	.file-item {
+		height: 8rem;
+		display: grid;
+		grid-template-columns: 8rem 1fr 6rem;
+		gap: 1rem;
+		margin-bottom: 1rem;
+
+		.file-icon {
+			width: 30px;
+			height: 30px;
+			margin-right: 10px;
+		}
+
+		.file-info {
+			overflow: auto;
+
+			span {
+				display: block;
+			}
+		}
+
+		.remove-btn {
+			cursor: pointer;
+			background: none;
+			border: none;
+			color: red;
+			align-self: flex-start;
+		}
+
+	}
+
+	@media screen and (max-width: 960px) {
+
+		max-height: 20rem;
+
+		.file-item {
+
+			height: 4rem;
+			display: grid;
+			grid-template-columns: 4rem 1fr 6rem;
+
+			.file-info {
+				font-size: 0.7rem;
+			}
+
+		}
+	}
+}
+
+.preview {
+	width: 8rem;
+	height: 8rem;
+	border-radius: 0.5rem;
+
+	::ng-deep span>img {
+		height: 8rem;
+		width: 8rem;
+		object-fit: cover;
+		border-radius: 0.5rem;
+	}
+
+	@media screen and (max-width: 960px) {
+		width: 4rem;
+		height: 4rem;
+
+		::ng-deep span>img {
+			height: 4rem;
+			width: 4rem;
+		}
+	}
+
+}
+
+.loading-skeleton {
+	height: 8rem;
+	display: grid;
+	grid-template-columns: 8rem 1fr;
+	gap: 1rem;
+	margin-bottom: 1rem;
+
+}
+
+.three-line-clamp {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	/* Number of lines you want to display */
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	line-height: 1.2em;
+	/* Adjust based on your design */
+	height: 3.6em;
+	/* line-height * number of lines */
+}
