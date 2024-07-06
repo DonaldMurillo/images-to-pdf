@@ -7,7 +7,7 @@
   },
   "package": {
     "productName": "images-to-pdf",
-    "version": "0.0.0"
+    "version": "0.0.1"
   },
   "tauri": {
     "allowlist": {
@@ -19,7 +19,7 @@
     },
     "windows": [
       {
-        "title": "images-to-pdf",
+        "title": "Images to PDF Converter",
         "width": 800,
         "height": 600,
         "fileDropEnabled": false
@@ -31,7 +31,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.tauri.dev",
+      "identifier": "com.tauri.images-to-pdf",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",

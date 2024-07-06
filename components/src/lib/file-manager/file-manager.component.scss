@@ -26,9 +26,9 @@
 	overflow: auto;
 
 	.file-item {
-		height: 8rem;
+		height: 4rem;
 		display: grid;
-		grid-template-columns: 1rem 8rem 1fr 6rem;
+		grid-template-columns: 1rem 4rem 1fr 6rem;
 		gap: 1rem;
 		margin-bottom: 1rem;
 
@@ -40,6 +40,7 @@
 
 		.file-info {
 			overflow: auto;
+			font-size: 0.7rem;
 
 			span {
 				display: block;
@@ -65,53 +66,21 @@
 	}
 
 	@media screen and (max-width: 960px) {
-
 		max-height: 20rem;
-
-		.file-item {
-			height: 4rem;
-			display: grid;
-			grid-template-columns: 1rem 4rem 1fr 6rem;
-
-			.file-info {
-				font-size: 0.7rem;
-			}
-
-		}
 	}
 }
 
 .preview {
-	width: 8rem;
-	height: 8rem;
+	width: 4rem;
+	height: 4rem;
 	border-radius: 0.5rem;
 
 	::ng-deep span>img {
-		height: 8rem;
-		width: 8rem;
+		height: 4rem;
+		width: 4rem;
 		object-fit: cover;
 		border-radius: 0.5rem;
 	}
-
-	@media screen and (max-width: 960px) {
-		width: 4rem;
-		height: 4rem;
-
-		::ng-deep span>img {
-			height: 4rem;
-			width: 4rem;
-		}
-	}
-
-}
-
-.loading-skeleton {
-	height: 8rem;
-	display: grid;
-	grid-template-columns: 1rem 8rem 1fr;
-	gap: 1rem;
-	margin-bottom: 1rem;
-
 }
 
 .three-line-clamp {
