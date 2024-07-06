@@ -28,7 +28,7 @@
 	.file-item {
 		height: 8rem;
 		display: grid;
-		grid-template-columns: 8rem 1fr 6rem;
+		grid-template-columns: 1rem 8rem 1fr 6rem;
 		gap: 1rem;
 		margin-bottom: 1rem;
 
@@ -44,6 +44,11 @@
 			span {
 				display: block;
 			}
+		}
+
+		.dragging {
+			opacity: 0.9;
+			background-color: #F7F9FC;
 		}
 
 		.remove-btn {
@@ -64,7 +69,7 @@
 
 			height: 4rem;
 			display: grid;
-			grid-template-columns: 4rem 1fr 6rem;
+			grid-template-columns: 1rem 4rem 1fr 6rem;
 
 			.file-info {
 				font-size: 0.7rem;
@@ -101,7 +106,7 @@
 .loading-skeleton {
 	height: 8rem;
 	display: grid;
-	grid-template-columns: 8rem 1fr;
+	grid-template-columns: 1rem 8rem 1fr;
 	gap: 1rem;
 	margin-bottom: 1rem;
 
@@ -119,4 +124,14 @@
 	/* Adjust based on your design */
 	height: 3.6em;
 	/* line-height * number of lines */
+}
+
+.drag-handle {
+	cursor: move;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 2rem;
 }

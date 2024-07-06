@@ -1,58 +1,64 @@
 <div
-  class="upload-area"
-  [class.drag-hover]="isDragOver()"
-  (drop)="onDrop($event)"
-  (dragover)="onDragOver($event)"
-  (dragleave)="onDragLeave($event)"
-  (click)="
-    fileManagementService.files().length < maxFileNumber - currentFileNumber
-      ? fileInput.click()
-      : null
-  "
+	class="upload-area"
+	[class.drag-hover]="isDragOver()"
+	(drop)="onDrop($event)"
+	(dragover)="onDragOver($event)"
+	(dragleave)="onDragLeave($event)"
+	(click)="
+		fileManagementService.files().length < maxFileNumber - currentFileNumber
+			? fileInput.click()
+			: null
+	"
 >
-  @if (fileManagementService.idle()) {
-  <p>Drag files or click here to add files.</p>
-  } @else {
-  <p>Optimizing your images, please wait</p>
-  }
+	@if (fileManagementService.idle()) {
+		<p>Drag files or click here to add files.</p>
+	} @else {
+		<p>Optimizing your images, please wait</p>
+	}
 
-  <input
-    type="file"
-    #fileInput
-    multiple
-    (change)="onFileChange($event)"
-    style="display: none"
-    [accept]="acceptFileTypes"
-  />
+	<input
+		type="file"
+		#fileInput
+		multiple
+		(change)="onFileChange($event)"
+		style="display: none"
+		[accept]="acceptFileTypes"
+	/>
 </div>
 <div class="files-list">
-  @for (file of fileManagementService.files(); track file.previewUrl) {
+	@for (
+		file of fileManagementService.files();
+		track file.previewUrl;
+		let index = $index
+	) {
+		<div
+			class="file-item"
+			draggable="true"
+			(drop)="listOnDrop($event, index)"
+			(dragstart)="listOnDragStart($event, index)"
+			(dragover)="listOnDragOver($event)"
+			[class.dragging]="index === dragIndex"
+		>
+			<span class="drag-handle">⋮</span>
+			@if (file.previewUrl) {
+				<img class="preview" [src]="file.previewUrl" width="250" />
+			} @else {
+				<img [src]="getFileIcon(file.blob.name)" class="file-icon" />
+			}
+			<div class="file-info">
+				<span class="three-line-clamp">{{ file.blob.name }}</span>
+				<span>{{ file.blob.size | fileSize }}</span>
+			</div>
+			<button class="remove-btn" (click)="removeFile(file.blob)">
+				remove
+			</button>
+		</div>
+	}
 
-  <div class="file-item">
-    @if (file.previewUrl) {
-    <img class="preview" [src]="file.previewUrl" width="250" />
-    } @else {
-    <img [src]="getFileIcon(file.blob.name)" class="file-icon" />
-    }
-    <div class="file-info">
-      <span class="three-line-clamp">{{ file.blob.name }}</span>
-      <span>{{ file.blob.size | fileSize }}</span>
-    </div>
-    <button class="remove-btn" (click)="removeFile(file.blob)">
-      <!-- <ng-icon class="li__icon" [name]="deleteIcon" size="1.5rem"
-				(click)="removeFile(file.blob)"></ng-icon> -->
-      remove
-    </button>
-  </div>
-  } @for (item of fileManagementService.filesLoading(); track $index) {
-
-  <div class="loading-skeleton">
-    <!-- <p-skeleton height="8rem"></p-skeleton>
-			<div>
-				<p-skeleton styleClass="mb-2"></p-skeleton>
-				<br>
-				<p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
-			</div> -->
-  </div>
-  }
+	@for (item of fileManagementService.filesLoading(); track $index) {
+		<skeleton-loader
+			class="file-item"
+			borderRadius="0.4rem"
+		></skeleton-loader>
+	}
 </div>

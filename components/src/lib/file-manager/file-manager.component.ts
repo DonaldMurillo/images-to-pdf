@@ -2,6 +2,7 @@ import { Component, Input, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
 import { FileManagementService } from 'services';
+import { SkeletonLoaderComponent } from '../skeleton-loader';
 
 @Pipe({
 	standalone: true,
@@ -22,13 +23,14 @@ export class FileSizePipe implements PipeTransform {
 @Component({
 	selector: 'file-manager',
 	standalone: true,
-	imports: [CommonModule, FileSizePipe],
+	imports: [CommonModule, FileSizePipe, SkeletonLoaderComponent],
 	templateUrl: './file-manager.component.html',
 	styleUrl: './file-manager.component.scss',
 	providers: [FileManagementService],
 })
 export class FileManagerComponent {
 
+	dragIndex: number | null = null;
 	fileManagementService = inject(FileManagementService);
 
 	@Input() acceptFileTypes = '*';
@@ -47,6 +49,43 @@ export class FileManagerComponent {
 		event.stopPropagation();
 		event.preventDefault();
 		this.isDragOver.set(false);
+	}
+
+	listOnDragLeave(event: DragEvent) {
+		// console.log($event);
+	}
+	listOnDragOver(event: DragEvent) {
+		event.preventDefault();
+		event.stopPropagation();
+		if (event.dataTransfer) {
+			event.dataTransfer.dropEffect = 'move';
+		}
+	}
+	listOnDrop(event: DragEvent, dropIndex: number) {
+		event.preventDefault();
+		event.stopPropagation();
+		const dragIndex = this.dragIndex;
+
+		if (dragIndex !== null && dragIndex !== dropIndex) {
+			const files = this.fileManagementService.files();
+			const [reorderedItem] = files.splice(dragIndex, 1);
+			files.splice(dropIndex, 0, reorderedItem);
+
+			// Update the service with the new order
+			files.forEach((file, index) => {
+				this.fileManagementService.reorderFiles(file.blob, index);
+			});
+		}
+
+		this.dragIndex = null;
+	}
+
+	listOnDragStart(event: DragEvent, index: number) {
+		this.dragIndex = index;
+		if (event.dataTransfer) {
+			event.dataTransfer.effectAllowed = 'move';
+			event.dataTransfer.setData('text/plain', index.toString());
+		}
 	}
 
 	removeFile(fileToRemove: File): void {

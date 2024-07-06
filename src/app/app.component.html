@@ -1,11 +1,11 @@
 <div class="container">
-  <button (click)="toggleTheme()">Toggle Theme</button>
+	<button (click)="toggleTheme()">Toggle Theme</button>
 
-  <file-manager></file-manager>
+	<file-manager></file-manager>
 
-  <form class="row" (submit)="greet($event, greetInput.value)">
-    <input #greetInput id="greet-input" placeholder="Enter a name..." />
-    <button type="submit" class="btn-primary">Greet</button>
-  </form>
-  <p>{{ greetingMessage }}</p>
+	<form class="row" (submit)="greet($event, greetInput.value)">
+		<input #greetInput id="greet-input" placeholder="Enter a name..." />
+		<button type="submit" class="btn-primary">Greet</button>
+	</form>
+	<p>{{ greetingMessage }}</p>
 </div>

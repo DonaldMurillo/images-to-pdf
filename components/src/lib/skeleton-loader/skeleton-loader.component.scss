@@ -1,0 +1,50 @@
+:host {
+	display: block;
+	background: linear-gradient(90deg,
+			rgba(0, 0, 0, 0.06) 25%,
+			rgba(0, 0, 0, 0.15) 37%,
+			rgba(0, 0, 0, 0.06) 63%);
+	background-size: 400% 100%;
+	animation: skeleton-loading 1.4s ease infinite;
+
+	&--circle {
+		border-radius: 50% !important;
+	}
+
+	&--triangle {
+		width: 0 !important;
+		height: 0 !important;
+		background: none !important;
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+		border-bottom: 100px solid rgba(0, 0, 0, 0.1);
+		position: relative;
+		overflow: hidden;
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: -50px;
+			width: 200px;
+			height: 200px;
+			background: linear-gradient(90deg,
+					rgba(0, 0, 0, 0.06) 25%,
+					rgba(0, 0, 0, 0.15) 37%,
+					rgba(0, 0, 0, 0.06) 63%);
+			background-size: 400% 100%;
+			animation: skeleton-loading 1.4s ease infinite;
+			transform: rotate(45deg);
+		}
+	}
+}
+
+@keyframes skeleton-loading {
+	0% {
+		background-position: -200% 0;
+	}
+
+	100% {
+		background-position: 200% 0;
+	}
+}

@@ -42,7 +42,7 @@ export class FileManagementService {
 	}
 
 	async handleFileInput(files: FileList, forceImageToWebp = false): Promise<void> {
-		this.#state.update(state => ({
+		this.#state.update((state) => ({
 			...state,
 			idle: false,
 			filesLoading: Array.from({ length: files.length }, (_, i) => i)
@@ -52,14 +52,14 @@ export class FileManagementService {
 			if (file.type.startsWith('image/') && (forceImageToWebp || file.size > 5 * 1024 * 1024)) {
 				const compressedFile = await this.compressImage(file);
 				const previewUrl = URL.createObjectURL(compressedFile);
-				this.#state.update(state => ({
+				this.#state.update((state) => ({
 					...state,
 					files: [...state.files, { blob: compressedFile, previewUrl }],
 					filesLoading: state.filesLoading.slice(1)
 				}));
 			} else {
 				const previewUrl = URL.createObjectURL(file);
-				this.#state.update(state => ({
+				this.#state.update((state) => ({
 					...state,
 					files: [...state.files, { blob: file, previewUrl }],
 					filesLoading: state.filesLoading.slice(1)
@@ -67,7 +67,7 @@ export class FileManagementService {
 			}
 		}
 
-		this.#state.update(state => ({ ...state, idle: true }));
+		this.#state.update((state) => ({ ...state, idle: true }));
 	}
 
 	private compressImage(file: File): Promise<File> {
@@ -110,13 +110,58 @@ export class FileManagementService {
 
 	removeFile(fileToRemove: File): void {
 		console.log(fileToRemove);
-		this.#state.update(state => ({
+		this.#state.update((state) => ({
 			...state,
 			files: state.files.filter((file) => file.blob !== fileToRemove)
 		}));
 	}
 
 	setIdle(idle: boolean): void {
-		this.#state.update(state => ({ ...state, idle }));
+		this.#state.update((state) => ({ ...state, idle }));
+	}
+
+	moveFileDown(movedFile: File): void {
+		this.#state.update((state) => {
+			const index = state.files.findIndex((file) => file.blob === movedFile);
+			if (index === -1 || index >= state.files.length - 1) return state; // Not found or already at the bottom
+			const newFiles = [...state.files];
+			[newFiles[index], newFiles[index + 1]] = [newFiles[index + 1], newFiles[index]];
+			return { ...state, files: newFiles };
+		});
+	}
+
+	moveFileToTop(movedFile: File): void {
+		this.#state.update((state) => {
+			const index = state.files.findIndex((file) => file.blob === movedFile);
+			if (index <= 0) return state; // Already at the top
+			const newFiles = [...state.files];
+			const [file] = newFiles.splice(index, 1);
+			newFiles.unshift(file);
+			return { ...state, files: newFiles };
+		});
+	}
+
+	moveFileToBottom(movedFile: File): void {
+		this.#state.update((state) => {
+			const index = state.files.findIndex((file) => file.blob === movedFile);
+			if (index === -1 || index >= state.files.length - 1) return state; // Not found or already at the bottom
+			const newFiles = [...state.files];
+			const [file] = newFiles.splice(index, 1);
+			newFiles.push(file);
+			return { ...state, files: newFiles };
+		});
+	}
+
+	reorderFiles(movedFile: File, newIndex: number): void {
+		this.#state.update((state) => {
+			const oldIndex = state.files.findIndex((file) => file.blob === movedFile);
+			if (oldIndex === -1 || newIndex < 0 || newIndex >= state.files.length) {
+				return state; // Invalid indices
+			}
+			const newFiles = [...state.files];
+			const [file] = newFiles.splice(oldIndex, 1);
+			newFiles.splice(newIndex, 0, file);
+			return { ...state, files: newFiles };
+		});
 	}
 }
