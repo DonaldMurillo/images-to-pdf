@@ -26,7 +26,6 @@ export class FileSizePipe implements PipeTransform {
 	imports: [CommonModule, FileSizePipe, SkeletonLoaderComponent],
 	templateUrl: './file-manager.component.html',
 	styleUrl: './file-manager.component.scss',
-	providers: [FileManagementService],
 })
 export class FileManagerComponent {
 

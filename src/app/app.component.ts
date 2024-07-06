@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { invoke } from "@tauri-apps/api/tauri";
-import { ThemeService } from 'services';
+import { FileManagementService, PdfGeneratorService, ThemeService } from 'services';
 import { FileManagerComponent } from 'components';
 
 @Component({
@@ -16,7 +16,11 @@ export class AppComponent {
   greetingMessage = "";
 
   readonly #themeService = inject(ThemeService);
+  readonly #pdfService = inject(PdfGeneratorService);
+  readonly #fileManagementService = inject(FileManagementService);
   readonly theme = this.#themeService.theme;
+  readonly canCreate = computed(() => this.#fileManagementService.idle() && this.#fileManagementService.files().length > 0);
+  readonly creatingPdf = this.#pdfService.creatingPdf;
 
   greet(event: SubmitEvent, name: string): void {
     event.preventDefault();
@@ -27,5 +31,9 @@ export class AppComponent {
     });
   }
 
-  toggleTheme = () => this.#themeService.toggleTheme()
+  toggleTheme = () => this.#themeService.toggleTheme();
+
+  createPDF() {
+    this.#pdfService.generateAndDownloadPdf(this.#fileManagementService.blobs());
+  }
 }

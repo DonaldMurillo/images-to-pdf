@@ -1,11 +1,36 @@
+<h1>Images To PDF Converter (Prototype)</h1>
+<p>Add images, reorder them and create pdf</p>
+<button (click)="toggleTheme()" class="btn btn-primary corner">
+	Toggle Theme
+	@if (theme() === 'light') {
+		☀️
+	} @else {
+		🌙
+	}
+</button>
 <div class="container">
-	<button (click)="toggleTheme()">Toggle Theme</button>
-
+	<br />
 	<file-manager></file-manager>
 
-	<form class="row" (submit)="greet($event, greetInput.value)">
-		<input #greetInput id="greet-input" placeholder="Enter a name..." />
-		<button type="submit" class="btn-primary">Greet</button>
-	</form>
+	<button
+		class="btn btn-success"
+		(click)="createPDF()"
+		[disabled]="!canCreate()"
+	>
+		Create PDF
+	</button>
 	<p>{{ greetingMessage }}</p>
+
+	@if (creatingPdf()) {
+		<div class="dialog">
+			<div class="loading-dialog">
+				<span class="loading-text">Generating pdf</span>
+				<div class="loading-dots">
+					<div class="dot"></div>
+					<div class="dot"></div>
+					<div class="dot"></div>
+				</div>
+			</div>
+		</div>
+	}
 </div>

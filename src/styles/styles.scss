@@ -2,6 +2,7 @@
 
 // Design System Tokens
 :root {
+	/* Existing color variables */
 	--primary-color: #007bff;
 	--secondary-color: #6c757d;
 	--success-color: #28a745;
@@ -11,28 +12,93 @@
 	--light-color: #f8f9fa;
 	--dark-color: #343a40;
 
+	/* New background variations */
+	--background-primary: #f0f2f5;
+	--background-secondary: #e4e6e8;
+	--background-tertiary: #d8dadc;
+	--background-accent: #e6f2ff;
+
+	/* New surface colors */
+	--surface-1: #ffffff;
+	--surface-2: #f8f9fa;
+	--surface-3: #f1f3f5;
+
+	/* New text color variations */
+	--text-primary: #212529;
+	--text-secondary: #495057;
+	--text-tertiary: #868e96;
+
+	/* New border colors */
+	--border-color: #dee2e6;
+	--border-color-light: #e9ecef;
+
+	/* New shadow variables */
+	--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+	--shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+	--shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+	/* Existing variables */
 	--border-radius: 0.25rem;
 	--transition-duration: 0.3s;
+
+	/* New spacing variables */
+	--spacing-xs: 0.25rem;
+	--spacing-sm: 0.5rem;
+	--spacing-md: 1rem;
+	--spacing-lg: 1.5rem;
+	--spacing-xl: 2rem;
+
+	/* New font variables */
+	--font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	--font-family-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	--font-size-base: 1rem;
+	--font-size-sm: 0.875rem;
+	--font-size-lg: 1.25rem;
 }
 
 :root:not(body.dark) {
-	--background-color: #ffffff;
-	--text-color: #212529;
-	--muted-text-color: #6c757d;
+	--background-color: var(--surface-1);
+	--text-color: var(--text-primary);
+	--muted-text-color: var(--text-tertiary);
 	--link-color: var(--primary-color);
-	--link-hover-color: darken(var(--primary-color), 10%);
+	--link-hover-color: #0056b3;
+	/* darken(var(--primary-color), 10%) */
 }
 
 :root:has(body.dark) {
 	--background-color: #121212;
+	--background-primary: #1e1e1e;
+	--background-secondary: #252525;
+	--background-tertiary: #2c2c2c;
+	--background-accent: #1a2635;
+
+	--surface-1: #1e1e1e;
+	--surface-2: #252525;
+	--surface-3: #2c2c2c;
+
 	--text-color: #e0e0e0;
+	--text-primary: #e0e0e0;
+	--text-secondary: #b0b0b0;
+	--text-tertiary: #808080;
+
 	--muted-text-color: #b0b0b0;
-	--link-color: lighten(var(--primary-color), 10%);
-	--link-hover-color: lighten(var(--primary-color), 20%);
+	--link-color: #4da3ff;
+	/* lighten(var(--primary-color), 10%) */
+	--link-hover-color: #80bcff;
+	/* lighten(var(--primary-color), 20%) */
+
+	--border-color: #404040;
+	--border-color-light: #4d4d4d;
+
+	--shadow-sm: 0 1px 2px rgba(255, 255, 255, 0.05);
+	--shadow-md: 0 4px 6px rgba(255, 255, 255, 0.1);
+	--shadow-lg: 0 10px 15px rgba(255, 255, 255, 0.1);
 }
 
 // Base styles
 body {
+	max-width: 1200px;
+	padding: 4rem;
 	background-color: var(--background-color);
 	color: var(--text-color);
 	font-family: Arial, sans-serif;
@@ -70,6 +136,7 @@ a {
 
 // Buttons
 .btn {
+	cursor: pointer;
 	display: inline-block;
 	font-weight: 400;
 	text-align: center;
@@ -88,7 +155,7 @@ a {
 		background-color: var(--primary-color);
 		border-color: var(--primary-color);
 
-		&:hover {
+		&:hover:not(:disabled) {
 			color: #fff;
 			background-color: var(--primary-color);
 			border-color: var(--primary-color);
@@ -104,6 +171,19 @@ a {
 			color: #fff;
 			background-color: var(--secondary-color);
 			border-color: var(--secondary-color);
+		}
+	}
+
+
+	&-success {
+		color: #fff;
+		background-color: var(--success-color);
+		border-color: var(--success-color);
+
+		&:hover {
+			color: #fff;
+			background-color: var(--success-color);
+			border-color: var(--success-color);
 		}
 	}
 

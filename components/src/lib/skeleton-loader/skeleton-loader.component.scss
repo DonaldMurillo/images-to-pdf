@@ -1,9 +1,9 @@
 :host {
 	display: block;
 	background: linear-gradient(90deg,
-			rgba(0, 0, 0, 0.06) 25%,
-			rgba(0, 0, 0, 0.15) 37%,
-			rgba(0, 0, 0, 0.06) 63%);
+			var(--text-secondary) 25%,
+			var(--text-tertiary) 37%,
+			var(--text-secondary) 63%);
 	background-size: 400% 100%;
 	animation: skeleton-loading 1.4s ease infinite;
 
@@ -29,9 +29,9 @@
 			width: 200px;
 			height: 200px;
 			background: linear-gradient(90deg,
-					rgba(0, 0, 0, 0.06) 25%,
-					rgba(0, 0, 0, 0.15) 37%,
-					rgba(0, 0, 0, 0.06) 63%);
+					var(--text-secondary) 25%,
+					var(--text-tertiary) 37%,
+					var(--text-secondary) 63%);
 			background-size: 400% 100%;
 			animation: skeleton-loading 1.4s ease infinite;
 			transform: rotate(45deg);
