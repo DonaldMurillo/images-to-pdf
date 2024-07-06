@@ -28,8 +28,8 @@ export class ThemeService {
 				this.#document.body.classList.remove('dark');
 			} else {
 				this.#document.body.classList.remove('light');
-				this.#localStorage?.removeItem('theme');
 				this.#document.body.classList.remove('dark');
+				this.#localStorage?.removeItem('theme');
 			}
 		});
 	}
