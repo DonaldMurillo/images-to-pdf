@@ -7,6 +7,17 @@
 	}
 </button>
 <h1>Images To PDF Converter (Prototype)</h1>
+<small>
+	This application works without a server. All interactions happen in the
+	browser/webview window.
+</small>
+<p>
+	@if (isWeb()) {
+		Web Version: The web version is as safe as your browser.
+	} @else {
+		Desktop version: All interactions occur only on your computer
+	}
+</p>
 <p>Add images, reorder them and create pdf</p>
 <div class="container">
 	<br />

@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { invoke } from "@tauri-apps/api/tauri";
@@ -21,6 +21,16 @@ export class AppComponent {
   readonly theme = this.#themeService.theme;
   readonly canCreate = computed(() => this.#fileManagementService.idle() && this.#fileManagementService.files().length > 0);
   readonly creatingPdf = this.#pdfService.creatingPdf;
+  readonly isWeb = signal<boolean | undefined>(undefined)
+
+  constructor() {
+
+    invoke<string>("greet", { name }).then((text) => {
+      this.greetingMessage = text;
+      console.log(text)
+      this.isWeb.set(false)
+    }).catch(() => this.isWeb.set(true));
+  }
 
   greet(event: SubmitEvent, name: string): void {
     event.preventDefault();
@@ -28,7 +38,7 @@ export class AppComponent {
     // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
     invoke<string>("greet", { name }).then((text) => {
       this.greetingMessage = text;
-    });
+    }).catch(console.log);
   }
 
   toggleTheme = () => this.#themeService.toggleTheme();
