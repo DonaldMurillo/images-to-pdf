@@ -11,17 +11,16 @@
 	cursor: pointer;
 	margin-bottom: 20px;
 	transition: background-color 0.3s ease;
-	/* Smooth transition for background color */
 
-	/* New styles for drag hover state */
 	&.drag-hover {
-		background-color: #D3E2F8;
+		background-color: #d3e2f8;
 		border-color: #0056b3;
-		cursor: move;
 	}
 }
 
 .files-list {
+	container-type: inline-size;
+
 	max-height: 30rem;
 	overflow: auto;
 
@@ -31,15 +30,26 @@
 		grid-template-columns: 1rem 4rem 1fr 6rem;
 		gap: 1rem;
 		margin-bottom: 1rem;
+		background-color: var(--background-secondary);
+		border-radius: 4px;
+		padding: 0.5rem;
+		transition: background-color 0.2s ease;
 
-		.file-icon {
-			width: 30px;
-			height: 30px;
-			margin-right: 10px;
+		&:hover {
+			background-color: #f7f9fc;
+		}
+
+		.drag-handle {
+			cursor: move;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 1.5rem;
+			color: var(--secondary-color);
 		}
 
 		.file-info {
-			overflow: auto;
+			overflow: hidden;
 			font-size: 0.7rem;
 
 			span {
@@ -47,21 +57,12 @@
 			}
 		}
 
-		.dragging {
-			opacity: 0.9;
-			background-color: #F7F9FC;
-		}
-
 		.remove-btn {
 			cursor: pointer;
 			background: none;
 			border: none;
 			color: red;
-			align-self: flex-start;
-		}
-
-		&:hover {
-			cursor: move;
+			align-self: center;
 		}
 	}
 
@@ -74,12 +75,12 @@
 	width: 4rem;
 	height: 4rem;
 	border-radius: 0.5rem;
+	overflow: hidden;
 
-	::ng-deep span>img {
-		height: 4rem;
-		width: 4rem;
+	img {
+		width: 100%;
+		height: 100%;
 		object-fit: cover;
-		border-radius: 0.5rem;
 	}
 }
 
@@ -87,22 +88,74 @@
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 3;
-	/* Number of lines you want to display */
 	overflow: hidden;
 	text-overflow: ellipsis;
 	word-wrap: break-word;
 	line-height: 1.2em;
-	/* Adjust based on your design */
-	height: 3.6em;
-	/* line-height * number of lines */
+	max-height: 3.6em;
 }
 
-.drag-handle {
-	cursor: move;
+.cdk-drag-preview {
+	display: flex;
+	gap: 2rem;
+	align-items: center;
+	background-color: #ffffff;
+	border-radius: 8px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+	padding: 12px;
+	max-width: 50cqw;
+	width: 100%;
+	// transition: transform 0.2s ease;
+	transform: rotate(2deg);
+
+	.remove-btn {
+		display: none;
+	}
+}
+
+.cdk-drag-preview .file-thumbnail {
+	width: 40px;
+	height: 40px;
+	border-radius: 4px;
+	overflow: hidden;
+	margin-right: 12px;
+	flex-shrink: 0;
+}
+
+.cdk-drag-preview .file-thumbnail img {
 	width: 100%;
 	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 2rem;
+	object-fit: cover;
+}
+
+.cdk-drag-preview .file-info {
+	flex-grow: 1;
+	overflow: hidden;
+}
+
+.cdk-drag-preview .file-name {
+	font-size: 14px;
+	font-weight: 500;
+	color: #333333;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-bottom: 4px;
+}
+
+.cdk-drag-preview .file-size {
+	font-size: 12px;
+	color: #666666;
+}
+
+.cdk-drag-placeholder {
+	opacity: 0;
+}
+
+.cdk-drag-animating {
+	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.files-list.cdk-drop-list-dragging .file-item:not(.cdk-drag-placeholder) {
+	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
